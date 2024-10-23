@@ -1,0 +1,48 @@
+{
+  "os":  "Linux-5.4.0-150-generic-x86_64-with-debian-buster-sid",
+  "python":  "3.7.6",
+  "startedAt":  "2024-10-09T13:18:04.999481Z",
+  "cuda":  "10.2.89",
+  "program":  "main.py",
+  "codePath":  "main.py",
+  "git":  {
+    "remote":  "https://github.com/katerynaCh/multimodal-emotion-recognition.git",
+    "commit":  "65232ce53c91bf51cf7328d6138c941e3639d352"
+  },
+  "email":  "figliolinoenzo81@gmail.com",
+  "root":  "/home/vincenzofigliolino/Project_tesi/multimodal-emotion-recognition",
+  "host":  "blackhole",
+  "username":  "vincenzofigliolino",
+  "executable":  "/opt/anaconda/bin/python",
+  "codePathLocal":  "main.py",
+  "cpu_count":  12,
+  "cpu_count_logical":  24,
+  "gpu":  "[Quadro K4200, GeForce GTX TITAN X]",
+  "gpu_count":  2,
+  "disk":  {
+    "/":  {
+      "total":  "124896559104",
+      "used":  "76666626048"
+    }
+  },
+  "memory":  {
+    "total":  "67409469440"
+  },
+  "cpu":  {
+    "count":  12,
+    "countLogical":  24
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "Quadro K4200",
+      "memoryTotal":  "4231266304",
+      "architecture":  "Kepler"
+    },
+    {
+      "name":  "GeForce GTX TITAN X",
+      "memoryTotal":  "12806062080",
+      "architecture":  "Maxwell"
+    }
+  ],
+  "cudaVersion":  "11.0"
+}

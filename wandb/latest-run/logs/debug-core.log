@@ -1,0 +1,7 @@
+{"time":"2024-10-09T15:18:04.315038656+02:00","level":"INFO","msg":"started logging, with flags","port-filename":"/tmp/tmpxg8_bp7j/port-13331.txt","pid":13331,"debug":false,"disable-analytics":false}
+{"time":"2024-10-09T15:18:04.315122047+02:00","level":"INFO","msg":"FeatureState","shutdownOnParentExitEnabled":false}
+{"time":"2024-10-09T15:18:04.336852463+02:00","level":"INFO","msg":"Will exit if parent process dies.","ppid":13331}
+{"time":"2024-10-09T15:18:04.336892787+02:00","level":"INFO","msg":"server is running","addr":{"IP":"127.0.0.1","Port":37131,"Zone":""}}
+{"time":"2024-10-09T15:18:04.506637118+02:00","level":"INFO","msg":"connection: ManageConnectionData: new connection created","id":"127.0.0.1:50430"}
+{"time":"2024-10-09T15:18:05.001621075+02:00","level":"INFO","msg":"handleInformInit: received","streamId":"cau80omd","id":"127.0.0.1:50430"}
+{"time":"2024-10-09T15:18:05.021245213+02:00","level":"INFO","msg":"handleInformInit: stream started","streamId":"cau80omd","id":"127.0.0.1:50430"}

@@ -6,11 +6,12 @@ from torch.autograd import Variable
 import time
 from utils import AverageMeter, calculate_accuracy
 
-def val_epoch_multimodal(epoch, data_loader, model, criterion, opt, logger,modality='both',dist=None ):
+
+def val_epoch_multimodal(epoch, data_loader, model, criterion, opt, logger, modality='both', dist=None):
     #for evaluation with single modality, specify which modality to keep and which distortion to apply for the other modaltiy:
     #'noise', 'addnoise' or 'zeros'. for paper procedure, with 'softhard' mask use 'zeros' for evaluation, with 'noise' use 'noise'
     print('validation at epoch {}'.format(epoch))
-    assert modality in ['both', 'audio', 'video']    
+    assert modality in ['both', 'audio', 'video']
     model.eval()
 
     batch_time = AverageMeter()
@@ -28,9 +29,10 @@ def val_epoch_multimodal(epoch, data_loader, model, criterion, opt, logger,modal
             if dist == 'noise':
                 print('Evaluating with full noise')
                 inputs_visual = torch.randn(inputs_visual.size())
-            elif dist == 'addnoise': #opt.mask == -4:
+            elif dist == 'addnoise':  #opt.mask == -4:
                 print('Evaluating with noise')
-                inputs_visual = inputs_visual + (torch.mean(inputs_visual) + torch.std(inputs_visual)*torch.randn(inputs_visual.size()))
+                inputs_visual = inputs_visual + (
+                            torch.mean(inputs_visual) + torch.std(inputs_visual) * torch.randn(inputs_visual.size()))
             elif dist == 'zeros':
                 inputs_visual = torch.zeros(inputs_visual.size())
             else:
@@ -40,18 +42,17 @@ def val_epoch_multimodal(epoch, data_loader, model, criterion, opt, logger,modal
             if dist == 'noise':
                 print('Evaluating with noise')
                 inputs_audio = torch.randn(inputs_audio.size())
-            elif dist == 'addnoise': #opt.mask == -4:
+            elif dist == 'addnoise':  #opt.mask == -4:
                 print('Evaluating with added noise')
-                inputs_audio = inputs_audio + (torch.mean(inputs_audio) + torch.std(inputs_audio)*torch.randn(inputs_audio.size()))
+                inputs_audio = inputs_audio + (
+                            torch.mean(inputs_audio) + torch.std(inputs_audio) * torch.randn(inputs_audio.size()))
 
             elif dist == 'zeros':
                 inputs_audio = torch.zeros(inputs_audio.size())
-        inputs_visual = inputs_visual.permute(0,2,1,3,4)
-        inputs_visual = inputs_visual.reshape(inputs_visual.shape[0]*inputs_visual.shape[1], inputs_visual.shape[2], inputs_visual.shape[3], inputs_visual.shape[4])
-        
+        inputs_visual = inputs_visual.permute(0, 2, 1, 3, 4)
+        inputs_visual = inputs_visual.reshape(inputs_visual.shape[0] * inputs_visual.shape[1], inputs_visual.shape[2],
+                                              inputs_visual.shape[3], inputs_visual.shape[4])
 
-
-        
         targets = targets.to(opt.device)
         with torch.no_grad():
             inputs_visual = Variable(inputs_visual)
@@ -59,7 +60,7 @@ def val_epoch_multimodal(epoch, data_loader, model, criterion, opt, logger,modal
             targets = Variable(targets)
         outputs = model(inputs_audio, inputs_visual)
         loss = criterion(outputs, targets)
-        prec1, prec5 = calculate_accuracy(outputs.data, targets.data, topk=(1,5))
+        prec1, prec5 = calculate_accuracy(outputs.data, targets.data, topk=(1, 5))
         top1.update(prec1, inputs_audio.size(0))
         top5.update(prec5, inputs_audio.size(0))
 
@@ -74,14 +75,14 @@ def val_epoch_multimodal(epoch, data_loader, model, criterion, opt, logger,modal
               'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
               'Prec@1 {top1.val:.5f} ({top1.avg:.5f})\t'
               'Prec@5 {top5.val:.5f} ({top5.avg:.5f})'.format(
-                  epoch,
-                  i + 1,
-                  len(data_loader),
-                  batch_time=batch_time,
-                  data_time=data_time,
-                  loss=losses,
-                  top1=top1,
-                  top5=top5))
+            epoch,
+            i + 1,
+            len(data_loader),
+            batch_time=batch_time,
+            data_time=data_time,
+            loss=losses,
+            top1=top1,
+            top5=top5))
 
     logger.log({'epoch': epoch,
                 'loss': losses.avg.item(),
@@ -90,8 +91,8 @@ def val_epoch_multimodal(epoch, data_loader, model, criterion, opt, logger,modal
 
     return losses.avg.item(), top1.avg.item()
 
+
 def val_epoch(epoch, data_loader, model, criterion, opt, logger, modality='both', dist=None):
     print('validation at epoch {}'.format(epoch))
     if opt.model == 'multimodalcnn':
         return val_epoch_multimodal(epoch, data_loader, model, criterion, opt, logger, modality, dist=dist)
-    
